@@ -300,3 +300,139 @@
     border: 1px solid #b8daff;
     color: #004085;
 }
+/* YoCo Loyalty Admin Styles */
+
+.yoco-loyalty-admin-content {
+    max-width: 1200px;
+}
+
+.yoco-loyalty-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.yoco-loyalty-stat-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.yoco-loyalty-stat-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #666;
+    font-weight: 600;
+}
+
+.yoco-loyalty-stat-card .stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2271b1;
+    margin: 10px 0;
+}
+
+.yoco-loyalty-stat-card p {
+    margin: 0;
+    color: #666;
+    font-size: 13px;
+}
+
+.yoco-loyalty-status {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.yoco-loyalty-status h3 {
+    margin-top: 0;
+}
+
+.yoco-loyalty-actions {
+    margin-top: 15px;
+}
+
+.yoco-loyalty-actions .button {
+    margin-right: 10px;
+}
+
+.yoco-loyalty-features ul {
+    list-style: none;
+    padding: 0;
+}
+
+.yoco-loyalty-features li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.yoco-loyalty-features li:last-child {
+    border-bottom: none;
+}
+
+.yoco-loyalty-support ul {
+    list-style: none;
+    padding: 0;
+}
+
+.yoco-loyalty-support li {
+    padding: 5px 0;
+}
+
+.yoco-loyalty-points-admin {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.yoco-loyalty-points-admin h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Loading states */
+.yoco-loyalty-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.yoco-loyalty-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #ccc;
+    border-top-color: #2271b1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .yoco-loyalty-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .yoco-loyalty-actions .button {
+        display: block;
+        margin: 5px 0;
+        width: 100%;
+    }
+}
