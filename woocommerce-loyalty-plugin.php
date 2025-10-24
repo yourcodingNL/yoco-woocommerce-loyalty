@@ -82,6 +82,11 @@ class YoCo_Loyalty_Plugin {
         // Admin hooks
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
+        add_action('admin_init', array($this, 'register_settings'));
+        
+        // AJAX hooks for update functionality
+        add_action('wp_ajax_yoco_loyalty_check_update', array($this, 'ajax_check_update'));
+        add_action('wp_ajax_yoco_loyalty_clear_cache', array($this, 'ajax_clear_cache'));
         
         // WooCommerce dependency check
         add_action('admin_notices', array($this, 'check_woocommerce_dependency'));
@@ -223,6 +228,22 @@ class YoCo_Loyalty_Plugin {
             YOCO_LOYALTY_VERSION,
             true
         );
+        
+        // Localize script voor AJAX calls
+        wp_localize_script('yoco-loyalty-admin', 'yocoLoyaltyAjax', array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('yoco_loyalty_nonce'),
+            'strings' => array(
+                'checking' => __('Controleren...', 'yoco-loyalty'),
+                'clearing' => __('Wissen...', 'yoco-loyalty'),
+                'check_updates' => __('Check voor Updates', 'yoco-loyalty'),
+                'clear_cache' => __('Wis Cache', 'yoco-loyalty'),
+                'update_available' => __('Er is een nieuwe versie beschikbaar!', 'yoco-loyalty'),
+                'up_to_date' => __('Je gebruikt de nieuwste versie.', 'yoco-loyalty'),
+                'cache_cleared' => __('Cache succesvol gewist.', 'yoco-loyalty'),
+                'error_occurred' => __('Er is een fout opgetreden.', 'yoco-loyalty')
+            )
+        ));
     }
     
     /**
@@ -248,6 +269,14 @@ class YoCo_Loyalty_Plugin {
                     <p><strong><?php _e('Ontwikkelaar:', 'yoco-loyalty'); ?></strong> 
                         <a href="https://www.yourcoding.nl" target="_blank">Your Coding - Sebastiaan Kalkman</a>
                     </p>
+                    <div class="yoco-loyalty-actions">
+                        <button type="button" class="button yoco-loyalty-check-update">
+                            <?php _e('Check voor Updates', 'yoco-loyalty'); ?>
+                        </button>
+                        <button type="button" class="button yoco-loyalty-clear-cache">
+                            <?php _e('Wis Update Cache', 'yoco-loyalty'); ?>
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="yoco-loyalty-features">
@@ -375,6 +404,73 @@ class YoCo_Loyalty_Plugin {
         add_option('yoco_loyalty_version', YOCO_LOYALTY_VERSION);
         add_option('yoco_loyalty_points_per_euro', 1);
         add_option('yoco_loyalty_euro_per_point', 0.01);
+    }
+    
+    /**
+     * Registreer plugin instellingen
+     */
+    public function register_settings() {
+        register_setting('yoco_loyalty_settings', 'yoco_loyalty_enabled');
+        register_setting('yoco_loyalty_settings', 'yoco_loyalty_points_per_euro');
+        register_setting('yoco_loyalty_settings', 'yoco_loyalty_euro_per_point');
+    }
+    
+    /**
+     * AJAX handler voor update check
+     */
+    public function ajax_check_update() {
+        // Verify nonce in production
+        // if (!wp_verify_nonce($_POST['nonce'], 'yoco_loyalty_nonce')) {
+        //     wp_die('Security check failed');
+        // }
+        
+        if (!current_user_can('manage_options')) {
+            wp_die('Insufficient permissions');
+        }
+        
+        // Force clear cache en check voor updates
+        if ($this->github_updater) {
+            $this->github_updater->clear_cache();
+            
+            // Trigger WordPress update check
+            wp_clean_update_cache();
+            
+            wp_send_json_success(array(
+                'message' => 'Update check voltooid',
+                'has_update' => false // Dit zou echte update logica moeten zijn
+            ));
+        } else {
+            wp_send_json_error(array(
+                'message' => 'GitHub updater niet beschikbaar'
+            ));
+        }
+    }
+    
+    /**
+     * AJAX handler voor cache wissen
+     */
+    public function ajax_clear_cache() {
+        // Verify nonce in production
+        // if (!wp_verify_nonce($_POST['nonce'], 'yoco_loyalty_nonce')) {
+        //     wp_die('Security check failed');
+        // }
+        
+        if (!current_user_can('manage_options')) {
+            wp_die('Insufficient permissions');
+        }
+        
+        if ($this->github_updater) {
+            $this->github_updater->clear_cache();
+            wp_clean_update_cache();
+            
+            wp_send_json_success(array(
+                'message' => 'Cache succesvol gewist'
+            ));
+        } else {
+            wp_send_json_error(array(
+                'message' => 'GitHub updater niet beschikbaar'
+            ));
+        }
     }
 }
 

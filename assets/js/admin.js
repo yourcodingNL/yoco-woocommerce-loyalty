@@ -32,13 +32,13 @@
             $('form[action="options.php"]').on('submit', this.handleSettingsSubmit);
             
             // Update check button
-            $(document).on('click', '.wc-loyalty-check-update', this.checkForUpdatesManual);
+            $(document).on('click', '.yoco-loyalty-check-update', this.checkForUpdatesManual);
             
             // Clear cache button
-            $(document).on('click', '.wc-loyalty-clear-cache', this.clearUpdateCache);
+            $(document).on('click', '.yoco-loyalty-clear-cache', this.clearUpdateCache);
             
             // Tab switching
-            $(document).on('click', '.wc-loyalty-tab', this.switchTab);
+            $(document).on('click', '.yoco-loyalty-tab', this.switchTab);
         },
         
         /**
@@ -79,15 +79,15 @@
             var $button = $(this);
             var originalText = $button.text();
             
-            $button.text('Controleren...').prop('disabled', true);
+            $button.text(yocoLoyaltyAjax.strings.checking).prop('disabled', true);
             
             YoCoLoyaltyAdmin.performUpdateCheck(function(hasUpdate) {
                 $button.text(originalText).prop('disabled', false);
                 
                 if (hasUpdate) {
-                    YoCoLoyaltyAdmin.showMessage('Er is een nieuwe versie beschikbaar!', 'warning');
+                    YoCoLoyaltyAdmin.showMessage(yocoLoyaltyAjax.strings.update_available, 'warning');
                 } else {
-                    YoCoLoyaltyAdmin.showMessage('Je gebruikt de nieuwste versie.', 'success');
+                    YoCoLoyaltyAdmin.showMessage(yocoLoyaltyAjax.strings.up_to_date, 'success');
                 }
             });
         },
@@ -97,11 +97,11 @@
          */
         performUpdateCheck: function(callback) {
             $.ajax({
-                url: ajaxurl,
+                url: yocoLoyaltyAjax.ajaxurl,
                 type: 'POST',
                 data: {
                     action: 'yoco_loyalty_check_update',
-                    nonce: YoCoLoyaltyAdmin.getNonce()
+                    nonce: yocoLoyaltyAjax.nonce
                 },
                 success: function(response) {
                     if (response.success && response.data.has_update) {
@@ -140,27 +140,27 @@
             var $button = $(this);
             var originalText = $button.text();
             
-            $button.text('Wissen...').prop('disabled', true);
+            $button.text(yocoLoyaltyAjax.strings.clearing).prop('disabled', true);
             
             $.ajax({
-                url: ajaxurl,
+                url: yocoLoyaltyAjax.ajaxurl,
                 type: 'POST',
                 data: {
                     action: 'yoco_loyalty_clear_cache',
-                    nonce: YoCoLoyaltyAdmin.getNonce()
+                    nonce: yocoLoyaltyAjax.nonce
                 },
                 success: function(response) {
                     $button.text(originalText).prop('disabled', false);
                     
                     if (response.success) {
-                        YoCoLoyaltyAdmin.showMessage('Cache succesvol gewist.', 'success');
+                        YoCoLoyaltyAdmin.showMessage(yocoLoyaltyAjax.strings.cache_cleared, 'success');
                     } else {
-                        YoCoLoyaltyAdmin.showMessage('Cache wissen mislukt.', 'error');
+                        YoCoLoyaltyAdmin.showMessage(yocoLoyaltyAjax.strings.error_occurred, 'error');
                     }
                 },
                 error: function() {
                     $button.text(originalText).prop('disabled', false);
-                    YoCoLoyaltyAdmin.showMessage('Cache wissen mislukt.', 'error');
+                    YoCoLoyaltyAdmin.showMessage(yocoLoyaltyAjax.strings.error_occurred, 'error');
                 }
             });
         },
@@ -212,14 +212,6 @@
                     $(this).remove();
                 });
             }, 5000);
-        },
-        
-        /**
-         * Get AJAX nonce
-         */
-        getNonce: function() {
-            // For now, return empty string - in production you'd add this via wp_localize_script
-            return '';
         },
         
         /**

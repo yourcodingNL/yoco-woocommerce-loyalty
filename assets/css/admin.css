@@ -116,6 +116,22 @@
     text-decoration: underline;
 }
 
+/* Action Buttons */
+.yoco-loyalty-actions {
+    margin: 15px 0;
+    padding: 15px 0;
+    border-top: 1px solid #f1f1f1;
+}
+
+.yoco-loyalty-actions .button {
+    margin-right: 10px;
+}
+
+.yoco-loyalty-actions .button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /* Plugin Update Notices */
 .yoco-loyalty-update-notice {
     background: #fff3cd;
