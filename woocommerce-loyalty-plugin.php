@@ -16,7 +16,7 @@
  * WC requires at least: 5.0
  * WC tested up to: 8.5
  * Network: false
- * Update URI: https://github.com/YourCoding/yoco-woocommerce-loyalty
+ * Update URI: https://github.com/yourcodingNL/yoco-woocommerce-loyalty
  * GitHub Plugin URI: YourCoding/yoco-woocommerce-loyalty
  * GitHub Branch: main
  */
