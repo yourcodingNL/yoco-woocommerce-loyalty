@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class WC_Loyalty_GitHub_Updater {
+class YoCo_Loyalty_GitHub_Updater {
     
     /**
      * Plugin bestand pad
@@ -189,7 +189,7 @@ class WC_Loyalty_GitHub_Updater {
         
         $code = wp_remote_retrieve_response_code($response);
         if (200 !== $code) {
-            return new WP_Error('download_failed', sprintf(__('Download failed met HTTP code %d', 'wc-loyalty'), $code));
+            return new WP_Error('download_failed', sprintf(__('Download failed met HTTP code %d', 'yoco-loyalty'), $code));
         }
         
         $temp_file = download_url($package);
@@ -209,14 +209,14 @@ class WC_Loyalty_GitHub_Updater {
             $links[] = sprintf(
                 '<a href="%s" target="_blank">%s</a>',
                 esc_url($this->plugin_data['PluginURI']),
-                __('GitHub Repository', 'wc-loyalty')
+                __('GitHub Repository', 'yoco-loyalty')
             );
             
             // Check voor update knop
             $links[] = sprintf(
                 '<a href="%s">%s</a>',
                 wp_nonce_url(admin_url('update.php?action=upgrade-plugin&plugin=' . urlencode($this->plugin_basename)), 'upgrade-plugin_' . $this->plugin_basename),
-                __('Check voor Updates', 'wc-loyalty')
+                __('Check voor Updates', 'yoco-loyalty')
             );
         }
         
@@ -228,7 +228,7 @@ class WC_Loyalty_GitHub_Updater {
      */
     private function get_remote_version() {
         // Check cache eerst
-        $cache_key = 'wc_loyalty_remote_version_' . md5($this->github_username . $this->github_repo);
+        $cache_key = 'yoco_loyalty_remote_version_' . md5($this->github_username . $this->github_repo);
         $cached_version = get_transient($cache_key);
         
         if ($cached_version !== false) {
@@ -355,14 +355,14 @@ class WC_Loyalty_GitHub_Updater {
             return base64_decode($changelog_data['content']);
         }
         
-        return __('Geen changelog beschikbaar.', 'wc-loyalty');
+        return __('Geen changelog beschikbaar.', 'yoco-loyalty');
     }
     
     /**
      * Clear update cache
      */
     public function clear_cache() {
-        $cache_key = 'wc_loyalty_remote_version_' . md5($this->github_username . $this->github_repo);
+        $cache_key = 'yoco_loyalty_remote_version_' . md5($this->github_username . $this->github_repo);
         delete_transient($cache_key);
     }
 }

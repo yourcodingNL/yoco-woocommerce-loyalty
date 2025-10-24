@@ -1,26 +1,26 @@
 /**
- * WooCommerce Loyalty Plugin - Admin Styles
+ * YoCo WooCommerce Loyalty - Admin Styles
  */
 
 /* Admin Dashboard Styles */
-.wc-loyalty-admin-content {
+.yoco-loyalty-admin-content {
     max-width: 1200px;
     margin: 20px 0;
 }
 
-.wc-loyalty-admin-content h2 {
+.yoco-loyalty-admin-content h2 {
     color: #23282d;
     margin-bottom: 15px;
 }
 
-.wc-loyalty-admin-content p {
+.yoco-loyalty-admin-content p {
     font-size: 14px;
     line-height: 1.6;
     color: #666;
 }
 
 /* Status Section */
-.wc-loyalty-status {
+.yoco-loyalty-status {
     background: #fff;
     border: 1px solid #ccd0d4;
     border-radius: 4px;
@@ -29,25 +29,25 @@
     box-shadow: 0 1px 1px rgba(0,0,0,.04);
 }
 
-.wc-loyalty-status h3 {
+.yoco-loyalty-status h3 {
     margin-top: 0;
     color: #23282d;
     font-size: 18px;
 }
 
-.wc-loyalty-status p {
+.yoco-loyalty-status p {
     margin: 10px 0;
     font-size: 14px;
 }
 
-.wc-loyalty-status p strong {
+.yoco-loyalty-status p strong {
     display: inline-block;
     width: 120px;
     color: #23282d;
 }
 
 /* Features Section */
-.wc-loyalty-features {
+.yoco-loyalty-features {
     background: #fff;
     border: 1px solid #ccd0d4;
     border-radius: 4px;
@@ -56,44 +56,81 @@
     box-shadow: 0 1px 1px rgba(0,0,0,.04);
 }
 
-.wc-loyalty-features h3 {
+.yoco-loyalty-features h3 {
     margin-top: 0;
     color: #23282d;
     font-size: 18px;
 }
 
-.wc-loyalty-features ul {
+.yoco-loyalty-features ul {
     list-style: none;
     padding: 0;
     margin: 15px 0;
 }
 
-.wc-loyalty-features li {
+.yoco-loyalty-features li {
     padding: 8px 0;
     font-size: 14px;
     color: #666;
     border-bottom: 1px solid #f1f1f1;
 }
 
-.wc-loyalty-features li:last-child {
+.yoco-loyalty-features li:last-child {
     border-bottom: none;
 }
 
+/* Support Section */
+.yoco-loyalty-support {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.yoco-loyalty-support h3 {
+    margin-top: 0;
+    color: #23282d;
+    font-size: 18px;
+}
+
+.yoco-loyalty-support ul {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.yoco-loyalty-support li {
+    padding: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.yoco-loyalty-support a {
+    color: #0073aa;
+    text-decoration: none;
+}
+
+.yoco-loyalty-support a:hover {
+    text-decoration: underline;
+}
+
 /* Plugin Update Notices */
-.wc-loyalty-update-notice {
+.yoco-loyalty-update-notice {
     background: #fff3cd;
     border-left: 4px solid #ffc107;
     padding: 12px;
     margin: 20px 0;
 }
 
-.wc-loyalty-update-notice p {
+.yoco-loyalty-update-notice p {
     margin: 0;
     color: #856404;
 }
 
 /* Settings Form */
-.wc-loyalty-settings-form {
+.yoco-loyalty-settings-form {
     background: #fff;
     border: 1px solid #ccd0d4;
     border-radius: 4px;
@@ -101,17 +138,17 @@
     margin: 20px 0;
 }
 
-.wc-loyalty-settings-form .form-table th {
+.yoco-loyalty-settings-form .form-table th {
     width: 200px;
     padding: 20px 10px 20px 0;
 }
 
-.wc-loyalty-settings-form .form-table td {
+.yoco-loyalty-settings-form .form-table td {
     padding: 15px 10px;
 }
 
 /* Buttons */
-.wc-loyalty-button {
+.yoco-loyalty-button {
     background: #0073aa;
     border-color: #0073aa;
     color: #fff;
@@ -130,30 +167,30 @@
     box-sizing: border-box;
 }
 
-.wc-loyalty-button:hover {
+.yoco-loyalty-button:hover {
     background: #005a87;
     border-color: #005a87;
     color: #fff;
 }
 
-.wc-loyalty-button.secondary {
+.yoco-loyalty-button.secondary {
     background: #f7f7f7;
     border-color: #cccccc;
     color: #555;
 }
 
-.wc-loyalty-button.secondary:hover {
+.yoco-loyalty-button.secondary:hover {
     background: #fafafa;
     border-color: #999;
     color: #23282d;
 }
 
 /* Loading States */
-.wc-loyalty-loading {
+.yoco-loyalty-loading {
     position: relative;
 }
 
-.wc-loyalty-loading::after {
+.yoco-loyalty-loading::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -164,31 +201,32 @@
     border: 2px solid #f3f3f3;
     border-top: 2px solid #0073aa;
     border-radius: 50%;
-    animation: wc-loyalty-spin 1s linear infinite;
+    animation: yoco-loyalty-spin 1s linear infinite;
 }
 
-@keyframes wc-loyalty-spin {
+@keyframes yoco-loyalty-spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
 /* Mobile Responsive */
 @media screen and (max-width: 782px) {
-    .wc-loyalty-admin-content {
+    .yoco-loyalty-admin-content {
         margin: 10px 0;
     }
     
-    .wc-loyalty-status,
-    .wc-loyalty-features {
+    .yoco-loyalty-status,
+    .yoco-loyalty-features,
+    .yoco-loyalty-support {
         padding: 15px;
         margin: 15px 0;
     }
     
-    .wc-loyalty-features li {
+    .yoco-loyalty-features li {
         padding: 10px 0;
     }
     
-    .wc-loyalty-status p strong {
+    .yoco-loyalty-status p strong {
         display: block;
         width: auto;
         margin-bottom: 5px;
@@ -196,7 +234,7 @@
 }
 
 /* GitHub Update Specific Styles */
-.wc-loyalty-github-info {
+.yoco-loyalty-github-info {
     background: #f8f9fa;
     border: 1px solid #dee2e6;
     border-radius: 4px;
@@ -204,12 +242,12 @@
     margin: 15px 0;
 }
 
-.wc-loyalty-github-info h4 {
+.yoco-loyalty-github-info h4 {
     margin-top: 0;
     color: #495057;
 }
 
-.wc-loyalty-github-info code {
+.yoco-loyalty-github-info code {
     background: #e9ecef;
     padding: 2px 6px;
     border-radius: 3px;
@@ -217,31 +255,31 @@
 }
 
 /* Success/Error Messages */
-.wc-loyalty-message {
+.yoco-loyalty-message {
     padding: 12px;
     margin: 15px 0;
     border-radius: 4px;
 }
 
-.wc-loyalty-message.success {
+.yoco-loyalty-message.success {
     background: #d4edda;
     border: 1px solid #c3e6cb;
     color: #155724;
 }
 
-.wc-loyalty-message.error {
+.yoco-loyalty-message.error {
     background: #f8d7da;
     border: 1px solid #f5c6cb;
     color: #721c24;
 }
 
-.wc-loyalty-message.warning {
+.yoco-loyalty-message.warning {
     background: #fff3cd;
     border: 1px solid #ffeaa7;
     color: #856404;
 }
 
-.wc-loyalty-message.info {
+.yoco-loyalty-message.info {
     background: #cce7ff;
     border: 1px solid #b8daff;
     color: #004085;

@@ -1,5 +1,5 @@
 /**
- * WooCommerce Loyalty Plugin - Admin JavaScript
+ * YoCo WooCommerce Loyalty - Admin JavaScript
  */
 
 (function($) {
@@ -7,13 +7,13 @@
     
     // Document ready
     $(document).ready(function() {
-        WCLoyaltyAdmin.init();
+        YoCoLoyaltyAdmin.init();
     });
     
     /**
      * Admin JavaScript Object
      */
-    var WCLoyaltyAdmin = {
+    var YoCoLoyaltyAdmin = {
         
         /**
          * Initialize admin functionality
@@ -62,7 +62,7 @@
          */
         checkForUpdates: function() {
             // Only check on plugin pages
-            if (!$('.wc-loyalty-admin-content').length) {
+            if (!$('.yoco-loyalty-admin-content').length) {
                 return;
             }
             
@@ -81,13 +81,13 @@
             
             $button.text('Controleren...').prop('disabled', true);
             
-            WCLoyaltyAdmin.performUpdateCheck(function(hasUpdate) {
+            YoCoLoyaltyAdmin.performUpdateCheck(function(hasUpdate) {
                 $button.text(originalText).prop('disabled', false);
                 
                 if (hasUpdate) {
-                    WCLoyaltyAdmin.showMessage('Er is een nieuwe versie beschikbaar!', 'warning');
+                    YoCoLoyaltyAdmin.showMessage('Er is een nieuwe versie beschikbaar!', 'warning');
                 } else {
-                    WCLoyaltyAdmin.showMessage('Je gebruikt de nieuwste versie.', 'success');
+                    YoCoLoyaltyAdmin.showMessage('Je gebruikt de nieuwste versie.', 'success');
                 }
             });
         },
@@ -100,12 +100,12 @@
                 url: ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'wc_loyalty_check_update',
-                    nonce: WCLoyaltyAdmin.getNonce()
+                    action: 'yoco_loyalty_check_update',
+                    nonce: YoCoLoyaltyAdmin.getNonce()
                 },
                 success: function(response) {
                     if (response.success && response.data.has_update) {
-                        WCLoyaltyAdmin.showUpdateNotice(response.data);
+                        YoCoLoyaltyAdmin.showUpdateNotice(response.data);
                         if (callback) callback(true);
                     } else {
                         if (callback) callback(false);
@@ -122,13 +122,13 @@
          * Show update notice
          */
         showUpdateNotice: function(updateData) {
-            var notice = $('<div class="wc-loyalty-update-notice">' +
+            var notice = $('<div class="yoco-loyalty-update-notice">' +
                 '<p><strong>Nieuwe versie beschikbaar:</strong> ' + updateData.new_version + 
                 ' (huidige versie: ' + updateData.current_version + ')</p>' +
-                '<p><a href="' + updateData.update_url + '" class="wc-loyalty-button">Nu bijwerken</a></p>' +
+                '<p><a href="' + updateData.update_url + '" class="yoco-loyalty-button">Nu bijwerken</a></p>' +
                 '</div>');
             
-            $('.wc-loyalty-admin-content').prepend(notice);
+            $('.yoco-loyalty-admin-content').prepend(notice);
         },
         
         /**
@@ -146,21 +146,21 @@
                 url: ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'wc_loyalty_clear_cache',
-                    nonce: WCLoyaltyAdmin.getNonce()
+                    action: 'yoco_loyalty_clear_cache',
+                    nonce: YoCoLoyaltyAdmin.getNonce()
                 },
                 success: function(response) {
                     $button.text(originalText).prop('disabled', false);
                     
                     if (response.success) {
-                        WCLoyaltyAdmin.showMessage('Cache succesvol gewist.', 'success');
+                        YoCoLoyaltyAdmin.showMessage('Cache succesvol gewist.', 'success');
                     } else {
-                        WCLoyaltyAdmin.showMessage('Cache wissen mislukt.', 'error');
+                        YoCoLoyaltyAdmin.showMessage('Cache wissen mislukt.', 'error');
                     }
                 },
                 error: function() {
                     $button.text(originalText).prop('disabled', false);
-                    WCLoyaltyAdmin.showMessage('Cache wissen mislukt.', 'error');
+                    YoCoLoyaltyAdmin.showMessage('Cache wissen mislukt.', 'error');
                 }
             });
         },
@@ -175,11 +175,11 @@
             var target = $tab.data('target');
             
             // Update tab states
-            $('.wc-loyalty-tab').removeClass('nav-tab-active');
+            $('.yoco-loyalty-tab').removeClass('nav-tab-active');
             $tab.addClass('nav-tab-active');
             
             // Show/hide content
-            $('.wc-loyalty-tab-content').hide();
+            $('.yoco-loyalty-tab-content').hide();
             $(target).show();
         },
         
@@ -202,9 +202,9 @@
         showMessage: function(message, type) {
             type = type || 'info';
             
-            var $message = $('<div class="wc-loyalty-message ' + type + '">' + message + '</div>');
+            var $message = $('<div class="yoco-loyalty-message ' + type + '">' + message + '</div>');
             
-            $('.wc-loyalty-admin-content').prepend($message);
+            $('.yoco-loyalty-admin-content').prepend($message);
             
             // Auto-hide after 5 seconds
             setTimeout(function() {
@@ -247,19 +247,19 @@
          * Utility: Show loading state
          */
         showLoading: function($element) {
-            $element.addClass('wc-loyalty-loading');
+            $element.addClass('yoco-loyalty-loading');
         },
         
         /**
          * Utility: Hide loading state
          */
         hideLoading: function($element) {
-            $element.removeClass('wc-loyalty-loading');
+            $element.removeClass('yoco-loyalty-loading');
         }
     };
     
-    // Make WCLoyaltyAdmin globally accessible
-    window.WCLoyaltyAdmin = WCLoyaltyAdmin;
+    // Make YoCoLoyaltyAdmin globally accessible
+    window.YoCoLoyaltyAdmin = YoCoLoyaltyAdmin;
     
 })(jQuery);
 
@@ -288,12 +288,12 @@ if (typeof jQuery === 'undefined') {
         });
         
         // Basic message display
-        window.showWCLoyaltyMessage = function(message, type) {
+        window.showYoCoLoyaltyMessage = function(message, type) {
             var messageDiv = document.createElement('div');
-            messageDiv.className = 'wc-loyalty-message ' + (type || 'info');
+            messageDiv.className = 'yoco-loyalty-message ' + (type || 'info');
             messageDiv.textContent = message;
             
-            var content = document.querySelector('.wc-loyalty-admin-content');
+            var content = document.querySelector('.yoco-loyalty-admin-content');
             if (content) {
                 content.insertBefore(messageDiv, content.firstChild);
                 
