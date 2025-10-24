@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: WooCommerce Loyalty Plugin
- * Plugin URI: https://github.com/jouwusername/woocommerce-loyalty-plugin
- * Description: Een uitgebreide loyalty plugin voor WooCommerce met puntensysteem, beloningen en klantbehoud functies.
+ * Plugin Name: YoCo WooCommerce Loyalty
+ * Plugin URI: https://github.com/YourCoding/yoco-woocommerce-loyalty
+ * Description: Een uitgebreide loyalty plugin voor WooCommerce met puntensysteem, beloningen en klantbehoud functies. Ontwikkeld door Your Coding.
  * Version: 1.0.0
- * Author: Jouw Naam
- * Author URI: https://jouwwebsite.nl
+ * Author: Your Coding
+ * Author URI: https://www.yourcoding.nl
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: wc-loyalty
+ * Text Domain: yoco-loyalty
  * Domain Path: /languages
  * Requires at least: 5.0
  * Tested up to: 6.4
@@ -16,8 +16,8 @@
  * WC requires at least: 5.0
  * WC tested up to: 8.5
  * Network: false
- * Update URI: https://github.com/jouwusername/woocommerce-loyalty-plugin
- * GitHub Plugin URI: jouwusername/woocommerce-loyalty-plugin
+ * Update URI: https://github.com/YourCoding/yoco-woocommerce-loyalty
+ * GitHub Plugin URI: YourCoding/yoco-woocommerce-loyalty
  * GitHub Branch: main
  */
 
@@ -27,16 +27,16 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constanten definiëren
-define('WC_LOYALTY_VERSION', '1.0.0');
-define('WC_LOYALTY_PLUGIN_FILE', __FILE__);
-define('WC_LOYALTY_PLUGIN_PATH', plugin_dir_path(__FILE__));
-define('WC_LOYALTY_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('WC_LOYALTY_PLUGIN_BASENAME', plugin_basename(__FILE__));
+define('YOCO_LOYALTY_VERSION', '1.0.0');
+define('YOCO_LOYALTY_PLUGIN_FILE', __FILE__);
+define('YOCO_LOYALTY_PLUGIN_PATH', plugin_dir_path(__FILE__));
+define('YOCO_LOYALTY_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('YOCO_LOYALTY_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 /**
  * Hoofdklasse van de plugin
  */
-class WC_Loyalty_Plugin {
+class YoCo_Loyalty_Plugin {
     
     /**
      * Single instance van de plugin
@@ -92,16 +92,16 @@ class WC_Loyalty_Plugin {
      */
     private function includes() {
         // GitHub updater klasse
-        require_once WC_LOYALTY_PLUGIN_PATH . 'includes/class-github-updater.php';
+        require_once YOCO_LOYALTY_PLUGIN_PATH . 'includes/class-github-updater.php';
         
         // Admin klassen (worden later toegevoegd)
         if (is_admin()) {
-            // require_once WC_LOYALTY_PLUGIN_PATH . 'includes/admin/class-admin.php';
+            // require_once YOCO_LOYALTY_PLUGIN_PATH . 'includes/admin/class-admin.php';
         }
         
         // Frontend klassen (worden later toegevoegd)
         if (!is_admin()) {
-            // require_once WC_LOYALTY_PLUGIN_PATH . 'includes/frontend/class-frontend.php';
+            // require_once YOCO_LOYALTY_PLUGIN_PATH . 'includes/frontend/class-frontend.php';
         }
     }
     
@@ -109,11 +109,11 @@ class WC_Loyalty_Plugin {
      * Initialiseer GitHub updater
      */
     private function init_github_updater() {
-        if (class_exists('WC_Loyalty_GitHub_Updater')) {
-            $this->github_updater = new WC_Loyalty_GitHub_Updater(
-                WC_LOYALTY_PLUGIN_FILE,
-                'jouwusername', // Vervang met jouw GitHub username
-                'woocommerce-loyalty-plugin', // Vervang met jouw repository naam
+        if (class_exists('YoCo_Loyalty_GitHub_Updater')) {
+            $this->github_updater = new YoCo_Loyalty_GitHub_Updater(
+                YOCO_LOYALTY_PLUGIN_FILE,
+                'YourCoding', // Your Coding GitHub organization/username
+                'yoco-woocommerce-loyalty', // Repository naam
                 'main' // Branch naam
             );
         }
@@ -126,7 +126,7 @@ class WC_Loyalty_Plugin {
         // Check WooCommerce dependency
         if (!class_exists('WooCommerce')) {
             deactivate_plugins(plugin_basename(__FILE__));
-            wp_die(__('Deze plugin vereist WooCommerce om te functioneren.', 'wc-loyalty'));
+            wp_die(__('YoCo Loyalty Plugin vereist WooCommerce om te functioneren.', 'yoco-loyalty'));
         }
         
         // Maak database tabellen aan (later toe te voegen)
@@ -152,7 +152,7 @@ class WC_Loyalty_Plugin {
      */
     public function init() {
         // Laad tekstdomein voor vertalingen
-        load_plugin_textdomain('wc-loyalty', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+        load_plugin_textdomain('yoco-loyalty', false, dirname(plugin_basename(__FILE__)) . '/languages/');
     }
     
     /**
@@ -182,21 +182,21 @@ class WC_Loyalty_Plugin {
      */
     public function admin_menu() {
         add_menu_page(
-            __('Loyalty Plugin', 'wc-loyalty'),
-            __('Loyalty', 'wc-loyalty'),
+            __('YoCo Loyalty', 'yoco-loyalty'),
+            __('YoCo Loyalty', 'yoco-loyalty'),
             'manage_options',
-            'wc-loyalty',
+            'yoco-loyalty',
             array($this, 'admin_page'),
             'dashicons-heart',
             56
         );
         
         add_submenu_page(
-            'wc-loyalty',
-            __('Instellingen', 'wc-loyalty'),
-            __('Instellingen', 'wc-loyalty'),
+            'yoco-loyalty',
+            __('Instellingen', 'yoco-loyalty'),
+            __('Instellingen', 'yoco-loyalty'),
             'manage_options',
-            'wc-loyalty-settings',
+            'yoco-loyalty-settings',
             array($this, 'settings_page')
         );
     }
@@ -205,22 +205,22 @@ class WC_Loyalty_Plugin {
      * Admin scripts en styles
      */
     public function admin_scripts($hook) {
-        if (strpos($hook, 'wc-loyalty') === false) {
+        if (strpos($hook, 'yoco-loyalty') === false) {
             return;
         }
         
         wp_enqueue_style(
-            'wc-loyalty-admin',
-            WC_LOYALTY_PLUGIN_URL . 'assets/css/admin.css',
+            'yoco-loyalty-admin',
+            YOCO_LOYALTY_PLUGIN_URL . 'assets/css/admin.css',
             array(),
-            WC_LOYALTY_VERSION
+            YOCO_LOYALTY_VERSION
         );
         
         wp_enqueue_script(
-            'wc-loyalty-admin',
-            WC_LOYALTY_PLUGIN_URL . 'assets/js/admin.js',
+            'yoco-loyalty-admin',
+            YOCO_LOYALTY_PLUGIN_URL . 'assets/js/admin.js',
             array('jquery'),
-            WC_LOYALTY_VERSION,
+            YOCO_LOYALTY_VERSION,
             true
         );
     }
@@ -232,30 +232,45 @@ class WC_Loyalty_Plugin {
         ?>
         <div class="wrap">
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-            <div class="wc-loyalty-admin-content">
-                <h2><?php _e('Welkom bij de WooCommerce Loyalty Plugin!', 'wc-loyalty'); ?></h2>
-                <p><?php _e('Deze plugin is in ontwikkeling. Binnenkort komen hier alle loyalty functies beschikbaar.', 'wc-loyalty'); ?></p>
+            <div class="yoco-loyalty-admin-content">
+                <h2><?php _e('Welkom bij YoCo WooCommerce Loyalty!', 'yoco-loyalty'); ?></h2>
+                <p><?php _e('Deze plugin is ontwikkeld door Your Coding en biedt uitgebreide loyalty functionaliteit voor je WooCommerce winkel.', 'yoco-loyalty'); ?></p>
                 
-                <div class="wc-loyalty-status">
-                    <h3><?php _e('Plugin Status', 'wc-loyalty'); ?></h3>
-                    <p><strong><?php _e('Versie:', 'wc-loyalty'); ?></strong> <?php echo WC_LOYALTY_VERSION; ?></p>
-                    <p><strong><?php _e('WooCommerce:', 'wc-loyalty'); ?></strong> 
-                        <?php echo class_exists('WooCommerce') ? '✅ ' . __('Actief', 'wc-loyalty') : '❌ ' . __('Niet gevonden', 'wc-loyalty'); ?>
+                <div class="yoco-loyalty-status">
+                    <h3><?php _e('Plugin Status', 'yoco-loyalty'); ?></h3>
+                    <p><strong><?php _e('Versie:', 'yoco-loyalty'); ?></strong> <?php echo YOCO_LOYALTY_VERSION; ?></p>
+                    <p><strong><?php _e('WooCommerce:', 'yoco-loyalty'); ?></strong> 
+                        <?php echo class_exists('WooCommerce') ? '✅ ' . __('Actief', 'yoco-loyalty') : '❌ ' . __('Niet gevonden', 'yoco-loyalty'); ?>
                     </p>
-                    <p><strong><?php _e('GitHub Updates:', 'wc-loyalty'); ?></strong> 
-                        <?php echo isset($this->github_updater) ? '✅ ' . __('Ingeschakeld', 'wc-loyalty') : '❌ ' . __('Uitgeschakeld', 'wc-loyalty'); ?>
+                    <p><strong><?php _e('GitHub Updates:', 'yoco-loyalty'); ?></strong> 
+                        <?php echo isset($this->github_updater) ? '✅ ' . __('Ingeschakeld', 'yoco-loyalty') : '❌ ' . __('Uitgeschakeld', 'yoco-loyalty'); ?>
+                    </p>
+                    <p><strong><?php _e('Ontwikkelaar:', 'yoco-loyalty'); ?></strong> 
+                        <a href="https://www.yourcoding.nl" target="_blank">Your Coding - Sebastiaan Kalkman</a>
                     </p>
                 </div>
                 
-                <div class="wc-loyalty-features">
-                    <h3><?php _e('Geplande Functies', 'wc-loyalty'); ?></h3>
+                <div class="yoco-loyalty-features">
+                    <h3><?php _e('Beschikbare Functies', 'yoco-loyalty'); ?></h3>
                     <ul>
-                        <li>🎯 Puntensysteem</li>
+                        <li>🎯 Puntensysteem per bestelling</li>
                         <li>🎁 Beloningen en vouchers</li>
-                        <li>📊 Klant dashboard</li>
-                        <li>📈 Loyalty analytics</li>
-                        <li>🔄 Automatische acties</li>
-                        <li>📧 E-mail notificaties</li>
+                        <li>📊 Klant loyalty dashboard</li>
+                        <li>📈 Uitgebreide loyalty analytics</li>
+                        <li>🔄 Automatische acties en triggers</li>
+                        <li>📧 E-mail notificaties voor klanten</li>
+                        <li>🏆 Tier/level systeem</li>
+                        <li>🎯 Referral programma</li>
+                    </ul>
+                </div>
+                
+                <div class="yoco-loyalty-support">
+                    <h3><?php _e('Support & Development', 'yoco-loyalty'); ?></h3>
+                    <p><?php _e('Voor vragen, support of maatwerk ontwikkeling:', 'yoco-loyalty'); ?></p>
+                    <ul>
+                        <li>🌐 Website: <a href="https://www.yourcoding.nl" target="_blank">www.yourcoding.nl</a></li>
+                        <li>📧 Email: info@yourcoding.nl</li>
+                        <li>🔧 GitHub: <a href="https://github.com/YourCoding/yoco-woocommerce-loyalty" target="_blank">Repository</a></li>
                     </ul>
                 </div>
             </div>
@@ -269,19 +284,33 @@ class WC_Loyalty_Plugin {
     public function settings_page() {
         ?>
         <div class="wrap">
-            <h1><?php _e('Loyalty Plugin Instellingen', 'wc-loyalty'); ?></h1>
+            <h1><?php _e('YoCo Loyalty Instellingen', 'yoco-loyalty'); ?></h1>
             <form method="post" action="options.php">
-                <?php settings_fields('wc_loyalty_settings'); ?>
-                <?php do_settings_sections('wc_loyalty_settings'); ?>
+                <?php settings_fields('yoco_loyalty_settings'); ?>
+                <?php do_settings_sections('yoco_loyalty_settings'); ?>
                 
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><?php _e('Plugin Status', 'wc-loyalty'); ?></th>
+                        <th scope="row"><?php _e('Plugin Status', 'yoco-loyalty'); ?></th>
                         <td>
                             <label>
-                                <input type="checkbox" name="wc_loyalty_enabled" value="1" <?php checked(get_option('wc_loyalty_enabled', 1)); ?> />
-                                <?php _e('Loyalty functionaliteit inschakelen', 'wc-loyalty'); ?>
+                                <input type="checkbox" name="yoco_loyalty_enabled" value="1" <?php checked(get_option('yoco_loyalty_enabled', 1)); ?> />
+                                <?php _e('YoCo Loyalty functionaliteit inschakelen', 'yoco-loyalty'); ?>
                             </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><?php _e('Punten per Euro', 'yoco-loyalty'); ?></th>
+                        <td>
+                            <input type="number" name="yoco_loyalty_points_per_euro" value="<?php echo get_option('yoco_loyalty_points_per_euro', 1); ?>" min="0" step="0.1" />
+                            <p class="description"><?php _e('Hoeveel punten krijgt een klant per uitgegeven euro?', 'yoco-loyalty'); ?></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><?php _e('Euro per Punt', 'yoco-loyalty'); ?></th>
+                        <td>
+                            <input type="number" name="yoco_loyalty_euro_per_point" value="<?php echo get_option('yoco_loyalty_euro_per_point', 0.01); ?>" min="0" step="0.01" />
+                            <p class="description"><?php _e('Hoeveel euro is 1 punt waard bij inwisseling?', 'yoco-loyalty'); ?></p>
                         </td>
                     </tr>
                 </table>
@@ -307,7 +336,7 @@ class WC_Loyalty_Plugin {
     public function woocommerce_missing_notice() {
         ?>
         <div class="notice notice-error">
-            <p><?php _e('WooCommerce Loyalty Plugin vereist WooCommerce om te functioneren. Installeer en activeer WooCommerce eerst.', 'wc-loyalty'); ?></p>
+            <p><?php _e('YoCo WooCommerce Loyalty vereist WooCommerce om te functioneren. Installeer en activeer WooCommerce eerst.', 'yoco-loyalty'); ?></p>
         </div>
         <?php
     }
@@ -321,7 +350,7 @@ class WC_Loyalty_Plugin {
         $charset_collate = $wpdb->get_charset_collate();
         
         // Punten tabel (wordt later uitgebreid)
-        $table_name = $wpdb->prefix . 'wc_loyalty_points';
+        $table_name = $wpdb->prefix . 'yoco_loyalty_points';
         $sql = "CREATE TABLE $table_name (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             user_id bigint(20) UNSIGNED NOT NULL,
@@ -342,12 +371,12 @@ class WC_Loyalty_Plugin {
      * Voeg standaard opties toe
      */
     private function add_default_options() {
-        add_option('wc_loyalty_enabled', 1);
-        add_option('wc_loyalty_version', WC_LOYALTY_VERSION);
-        add_option('wc_loyalty_points_per_euro', 1);
-        add_option('wc_loyalty_euro_per_point', 0.01);
+        add_option('yoco_loyalty_enabled', 1);
+        add_option('yoco_loyalty_version', YOCO_LOYALTY_VERSION);
+        add_option('yoco_loyalty_points_per_euro', 1);
+        add_option('yoco_loyalty_euro_per_point', 0.01);
     }
 }
 
 // Start de plugin
-WC_Loyalty_Plugin::get_instance();
+YoCo_Loyalty_Plugin::get_instance();
