@@ -117,7 +117,7 @@ class YoCo_Loyalty_Plugin {
         if (class_exists('YoCo_Loyalty_GitHub_Updater')) {
     $this->github_updater = new YoCo_Loyalty_GitHub_Updater(
                 YOCO_LOYALTY_PLUGIN_FILE,
-                'YourCoding', // Your Coding GitHub organization/username
+                'yourcodingNL ', // Your Coding GitHub organization/username
                 'yoco-woocommerce-loyalty', // Repository naam
                 'main' // Branch naam
             );
@@ -299,7 +299,7 @@ class YoCo_Loyalty_Plugin {
                     <ul>
                         <li>🌐 Website: <a href="https://www.yourcoding.nl" target="_blank">www.yourcoding.nl</a></li>
                         <li>📧 Email: info@yourcoding.nl</li>
-                        <li>🔧 GitHub: <a href="https://github.com/YourCoding/yoco-woocommerce-loyalty" target="_blank">Repository</a></li>
+                        <li>🔧 GitHub: <a href="https://github.com/yourcodingNL/yoco-woocommerce-loyalty" target="_blank">Repository</a></li>
                     </ul>
                 </div>
             </div>
