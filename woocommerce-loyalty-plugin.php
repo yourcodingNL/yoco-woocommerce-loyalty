@@ -115,7 +115,7 @@ class YoCo_Loyalty_Plugin {
      */
     private function init_github_updater() {
         if (class_exists('YoCo_Loyalty_GitHub_Updater')) {
-            $this->github_updater = new YoCo_Loyalty_GitHub_Updater(
+    $this->github_updater = new YoCo_Loyalty_GitHub_Updater(
                 YOCO_LOYALTY_PLUGIN_FILE,
                 'YourCoding', // Your Coding GitHub organization/username
                 'yoco-woocommerce-loyalty', // Repository naam
