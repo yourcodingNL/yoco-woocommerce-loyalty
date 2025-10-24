@@ -27,7 +27,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constanten definiëren
-define('YOCO_LOYALTY_VERSION', '1.0.0');
+define('YOCO_LOYALTY_VERSION', '0.0.1');
 define('YOCO_LOYALTY_PLUGIN_FILE', __FILE__);
 define('YOCO_LOYALTY_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('YOCO_LOYALTY_PLUGIN_URL', plugin_dir_url(__FILE__));
