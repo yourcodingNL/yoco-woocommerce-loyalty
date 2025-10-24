@@ -1,6 +1,6 @@
-# WooCommerce Loyalty Plugin
+# YoCo WooCommerce Loyalty
 
-Een uitgebreide loyalty plugin voor WooCommerce met puntensysteem, beloningen en automatische GitHub updates.
+Een uitgebreide loyalty plugin voor WooCommerce met puntensysteem, beloningen en automatische GitHub updates. Ontwikkeld door Your Coding.
 
 ## 🚀 Features
 
@@ -8,17 +8,29 @@ Een uitgebreide loyalty plugin voor WooCommerce met puntensysteem, beloningen en
 - ✅ Basis plugin structuur
 - ✅ GitHub automatische updates
 - ✅ WooCommerce dependency check
-- ✅ Admin interface
+- ✅ Admin interface met YoCo branding
 - ✅ Database tabellen setup
 - ✅ Plugin activatie/deactivatie
+- ✅ Instellingen voor punten configuratie
 
 ### Geplande Features
-- 🎯 Puntensysteem
-- 🎁 Beloningen en vouchers
-- 📊 Klant dashboard
-- 📈 Loyalty analytics
-- 🔄 Automatische acties
-- 📧 E-mail notificaties
+- 🎯 Uitgebreid puntensysteem per bestelling
+- 🎁 Flexibele beloningen en vouchers
+- 📊 Klant loyalty dashboard
+- 📈 Detailleerde loyalty analytics
+- 🔄 Automatische acties en triggers
+- 📧 E-mail notificaties voor klanten
+- 🏆 Tier/level systeem
+- 🎯 Referral programma
+
+## 👨‍💻 Over Your Coding
+
+Deze plugin is ontwikkeld door **Your Coding** - Sebastiaan Kalkman, een gespecialiseerde WordPress en WooCommerce ontwikkelaar.
+
+- 🌐 **Website**: [www.yourcoding.nl](https://www.yourcoding.nl)
+- 📧 **Email**: info@yourcoding.nl
+- 🎯 **Specialisatie**: Custom WordPress & WooCommerce ontwikkeling
+- 🔧 **Services**: Plugin development, theme customization, WooCommerce uitbreidingen
 
 ## 📋 Vereisten
 
@@ -30,14 +42,14 @@ Een uitgebreide loyalty plugin voor WooCommerce met puntensysteem, beloningen en
 ## 🛠 Installatie
 
 ### Methode 1: GitHub Releases (Aanbevolen)
-1. Download de nieuwste release van: `https://github.com/jouwusername/woocommerce-loyalty-plugin/releases`
+1. Download de nieuwste release van: `https://github.com/YourCoding/yoco-woocommerce-loyalty/releases`
 2. Upload het ZIP bestand via WordPress Admin → Plugins → Plugin toevoegen → Plugin uploaden
 3. Activeer de plugin
 
 ### Methode 2: Git Clone
 ```bash
 cd wp-content/plugins/
-git clone https://github.com/jouwusername/woocommerce-loyalty-plugin.git
+git clone https://github.com/YourCoding/yoco-woocommerce-loyalty.git
 ```
 
 ### Methode 3: Direct Download
@@ -48,19 +60,19 @@ git clone https://github.com/jouwusername/woocommerce-loyalty-plugin.git
 ## ⚙️ GitHub Update Setup
 
 ### 1. Plugin Configuratie
-Update de volgende waarden in het hoofdbestand (`woocommerce-loyalty-plugin.php`):
+De plugin is al geconfigureerd met de juiste GitHub repository details:
 
 ```php
-// Vervang deze waarden:
-'jouwusername' => 'je-github-username'
-'woocommerce-loyalty-plugin' => 'je-repository-naam'
+// Repository configuratie (al ingesteld):
+'YourCoding' => 'GitHub organization/username'
+'yoco-woocommerce-loyalty' => 'Repository naam'
 ```
 
 ### 2. GitHub Repository Setup
 
 #### Repository Structuur
 ```
-je-repository/
+yoco-woocommerce-loyalty/
 ├── woocommerce-loyalty-plugin.php (hoofdbestand)
 ├── includes/
 │   └── class-github-updater.php
@@ -85,25 +97,25 @@ git push origin v1.0.0
 Voor private repositories, voeg een GitHub Personal Access Token toe:
 
 ```php
-// In de plugin file
+// In de plugin file, in de init_github_updater() methode
 $github_token = 'ghp_jouwtoken'; // Optioneel voor private repos
-$this->github_updater = new WC_Loyalty_GitHub_Updater(
-    WC_LOYALTY_PLUGIN_FILE,
-    'jouwusername',
-    'repository-naam',
+$this->github_updater = new YoCo_Loyalty_GitHub_Updater(
+    YOCO_LOYALTY_PLUGIN_FILE,
+    'YourCoding',
+    'yoco-woocommerce-loyalty',
     'main',
     $github_token // Voeg token toe
 );
 ```
 
 ### 3. WordPress Plugin Header
-Zorg ervoor dat de plugin header correct is:
+De plugin header is al correct geconfigureerd:
 
 ```php
 /**
- * Plugin Name: WooCommerce Loyalty Plugin
- * Update URI: https://github.com/jouwusername/woocommerce-loyalty-plugin
- * GitHub Plugin URI: jouwusername/woocommerce-loyalty-plugin
+ * Plugin Name: YoCo WooCommerce Loyalty
+ * Update URI: https://github.com/YourCoding/yoco-woocommerce-loyalty
+ * GitHub Plugin URI: YourCoding/yoco-woocommerce-loyalty
  * GitHub Branch: main
  */
 ```
@@ -116,7 +128,7 @@ Zorg ervoor dat de plugin header correct is:
 - Klik op "Nu bijwerken" om de nieuwste versie te installeren
 
 ### Handmatige Update Check
-1. Ga naar WordPress Admin → Loyalty → Instellingen
+1. Ga naar WordPress Admin → YoCo Loyalty → Instellingen
 2. Klik op "Check voor Updates"
 3. Als er een update beschikbaar is, wordt deze getoond
 
@@ -129,7 +141,7 @@ Als updates niet verschijnen:
 ## 📁 Bestandsstructuur
 
 ```
-woocommerce-loyalty-plugin/
+yoco-woocommerce-loyalty/
 ├── woocommerce-loyalty-plugin.php    # Hoofdbestand
 ├── includes/                         # PHP klassen
 │   ├── class-github-updater.php     # GitHub update functionaliteit
@@ -157,9 +169,9 @@ woocommerce-loyalty-plugin/
 ### Tabellen
 De plugin maakt de volgende tabellen aan:
 
-#### `wp_wc_loyalty_points`
+#### `wp_yoco_loyalty_points`
 ```sql
-CREATE TABLE wp_wc_loyalty_points (
+CREATE TABLE wp_yoco_loyalty_points (
     id mediumint(9) NOT NULL AUTO_INCREMENT,
     user_id bigint(20) UNSIGNED NOT NULL,
     points int(11) NOT NULL DEFAULT 0,
@@ -216,10 +228,19 @@ define('WP_DEBUG_LOG', true);
 
 ## 📞 Support
 
-Voor vragen en support:
-- GitHub Issues: `https://github.com/jouwusername/woocommerce-loyalty-plugin/issues`
-- Email: je-email@domein.nl
-- Website: https://jouwwebsite.nl
+Voor vragen, support en maatwerk ontwikkeling:
+- 🌐 **Website**: [www.yourcoding.nl](https://www.yourcoding.nl)
+- 📧 **Email**: info@yourcoding.nl
+- 🔧 **GitHub Issues**: `https://github.com/YourCoding/yoco-woocommerce-loyalty/issues`
+- 👨‍💻 **Ontwikkelaar**: Sebastiaan Kalkman - Your Coding
+
+### Maatwerk Ontwikkeling
+Your Coding biedt ook maatwerk WordPress en WooCommerce ontwikkeling:
+- Custom plugin development
+- WooCommerce uitbreidingen
+- Theme customization
+- Performance optimalisatie
+- Onderhoud en support
 
 ## 📄 Licentie
 
