@@ -3,7 +3,7 @@
  * Plugin Name: YoCo WooCommerce Loyalty
  * Plugin URI: https://github.com/YourCoding/yoco-woocommerce-loyalty
  * Description: Een uitgebreide loyalty plugin voor WooCommerce met puntensysteem, beloningen en klantbehoud functies. Ontwikkeld door Your Coding.
- * Version: 1.0.0
+ * Version: 0.0.1
  * Author: Your Coding
  * Author URI: https://www.yourcoding.nl
  * License: GPL v2 or later
