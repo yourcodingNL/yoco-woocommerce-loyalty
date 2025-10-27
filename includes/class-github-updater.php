@@ -256,7 +256,7 @@ class YoCo_Loyalty_GitHub_Updater {
         if ($version_info && !empty($version_info['tag_name'])) {
             $version_data = array(
                 'version' => ltrim($version_info['tag_name'], 'v'),
-                'download_url' => $version_info['zipball_url'],
+                'download_url' => "https://github.com/{$this->github_username}/{$this->github_repo}/archive/refs/tags/{$version_info['tag_name']}.zip",
                 'last_updated' => $version_info['published_at'],
                 'requires' => $this->plugin_data['RequiresWP'] ?: '5.0',
                 'tested' => $this->plugin_data['TestedUpTo'] ?: get_bloginfo('version'),
