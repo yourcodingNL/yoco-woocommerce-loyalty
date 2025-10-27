@@ -98,6 +98,8 @@ class YoCo_Loyalty_Plugin {
     private function includes() {
         // GitHub updater klasse
         require_once YOCO_LOYALTY_PLUGIN_PATH . 'includes/class-github-updater.php';
+        require_once YOCO_LOYALTY_PLUGIN_PATH . 'includes/class-database.php';
+        require_once YOCO_LOYALTY_PLUGIN_PATH . 'includes/class-points-system.php';
         
         // Admin klassen (worden later toegevoegd)
         if (is_admin()) {
